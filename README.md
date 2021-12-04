@@ -61,6 +61,14 @@ How to use
 
 --------------------------------------------------------------------------------------------------------     
 
+## Setup Guides
+
+1. For setup on ios follow [IOS Guide](src/IosGuide.md)
+
+2. For setup on android follow [Android Guide](src/AndroidGuide.md)
+
+--------------------------------------------------------------------------------------------------------     
+
 ## To do
 
 - [x] Add Authentication with Email and Password
