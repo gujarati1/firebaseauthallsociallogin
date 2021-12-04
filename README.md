@@ -63,9 +63,9 @@ How to use
 
 ## Setup Guides
 
-1. For setup on ios follow [IOS Guide](src/IosGuide.md)
+1. For setup on ios follow [IOS Guide](lib/IosGuide.md)
 
-2. For setup on android follow [Android Guide](src/AndroidGuide.md)
+2. For setup on android follow [Android Guide](lib/AndroidGuide.md)
 
 --------------------------------------------------------------------------------------------------------     
 
