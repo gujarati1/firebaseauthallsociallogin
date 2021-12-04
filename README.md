@@ -20,7 +20,7 @@ How to use
 
 3. Create Android and ios platform from [Firebase](https://console.firebase.google.com/) project setting.
 
-4. Download google-service.json and googleService-info.plist file and add both file project root folder.
+4. Download google-service.json (Add google-service.json file path : android/app/google-services.json) and googleService-info.plist (Add GoogleService-info.plist in Xcode Path : MyApp/GoogleService-info.plist) file and add both file project root folder.
 
 5. Add required dependancy into "pubspec.yaml" 
    * You can see required dependancy from [Social Authentication](https://firebase.flutter.dev/docs/auth/social/).
