@@ -21,10 +21,9 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
         } 
 
 * Add into (android/app/)build.gradle 
+   ```
     apply plugin: 'com.google.gms.google-services'
     apply plugin: 'com.google.firebase.crashlytics'
-
-    ```
     defaultConfig {
         
         applicationId "com.example.firebaseauth"
@@ -34,9 +33,9 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
-    ```
-    dependencies {
+    
+   ``` 
+     dependencies {
             implementation platform('com.google.firebase:firebase-bom:29.0.1')
             implementation 'com.google.firebase:firebase-crashlytics'
             implementation 'com.google.firebase:firebase-analytics'
@@ -62,7 +61,7 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
 
 ## Twitter authentication with firebase
 
-1. Login/Signup in your [twitter developer account]("https://developer.twitter.com/en/apps")
+1. Login/Signup in your [twitter developer account](https://developer.twitter.com/en/apps)
 2. Click Create app
 3. Set your app name then copy & store "Api Key" & "Api Secert Key".
 4. Follow the social authentication [Twitter](https://firebase.flutter.dev/docs/auth/social#facebook) for facebook sign setup.    
@@ -81,8 +80,8 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
 
 ## Apple authentication with firebase
 
-  1. Register your app in apple store using [apple developer account]("https://developer.apple.com/")
-  2. If you can not able to understand properly follow this dependancy [sign_in_with_apple]("https://pub.dev/packages/sign_in_with_apple")
+  1. Register your app in apple store using [apple developer account](https://developer.apple.com)
+  2. If you can not able to understand properly follow this dependancy [sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple)
   3. Enable Apple authentication on [Firebase](https://console.firebase.google.com/).
      * Click on your project in [Firebase](https://console.firebase.google.com/) 
      * Select "Authentication" menu you can see right side on top 
@@ -98,13 +97,14 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
    - Open android studio
    - Add -> implementation "androidx.multidex:multidex:2.0.1" -> in android app/build.gradle
    - Add -> multiDexEnabled true -> to in android app/build.gradle
+    ```
      defaultConfig{
        multiDexEnabled true
     }
 
 2. current minSdkVersion 16 required minSdkVersion 19    
    - Open android studio -> Open app/build.gradle 
-    
+     ``` 
      defaultConfig {
         applicationId "com.example.firebaseauth"
         minSdkVersion 19 (replace this line 'minSdkVersion 16' to 'minSdkVersion 19')
