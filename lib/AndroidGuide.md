@@ -14,7 +14,7 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
    path : android/app/google-services.json
 
 * Add into (root)build.gradle 
-
+    ```
     dependencies {
             classpath 'com.google.gms:google-services:4.3.10'
             classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
@@ -24,6 +24,7 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
     apply plugin: 'com.google.gms.google-services'
     apply plugin: 'com.google.firebase.crashlytics'
 
+    ```
     defaultConfig {
         
         applicationId "com.example.firebaseauth"
@@ -34,6 +35,7 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
         versionName flutterVersionName
     }
 
+    ```
     dependencies {
             implementation platform('com.google.firebase:firebase-bom:29.0.1')
             implementation 'com.google.firebase:firebase-crashlytics'
@@ -90,7 +92,7 @@ This is guide you to Android Studio setup while enabling Flutter Firebase Authen
   1. Enable Phone Auth on Firebase.
       * No requirements of any Android studio setup if you had already performed steps of google auth.
   2. Follow the [Phone Authentication](https://firebase.flutter.dev/docs/auth/phone) for phone auth setup.
-  
+
 ## Error 
 1. .Dexpath file 
    - Open android studio
