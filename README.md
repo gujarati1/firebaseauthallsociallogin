@@ -57,7 +57,7 @@ How to use
      * Click on your project in [Firebase](https://console.firebase.google.com/) 
      * Select "Authentication" menu you can see right side on top 
      * Select "Sign-in method" and turn on "Facebook"
-     * Add Facebook App Id & App seceret from [facebook developer account](https://developers.facebook.com/apps/)      
+     * Add Facebook App Id & App seceret from [facebook developer account](https://developers.facebook.com/apps)      
 
 --------------------------------------------------------------------------------------------------------     
 
@@ -65,9 +65,9 @@ How to use
 
 ## Twitter authentication with firebase
 
-  1. Create twitter app using [twitter developer account]("https://developer.twitter.com/en/apps")
+  1. Create twitter app using [twitter developer account](https://developer.twitter.com/en/apps)
   2. Copy & store "Api Key" & "Api Secert Key".
-  3. Enable twitter authentication on [Firebase](https://console.firebase.google.com/).
+  3. Enable twitter authentication on [Firebase](https://console.firebase.google.com).
      * Click on your project in [Firebase](https://console.firebase.google.com/) 
      * Select "Authentication" menu you can see right side on top 
      * Select "Sign-in method" and turn on "Twitter"
@@ -76,8 +76,8 @@ How to use
 
 ## Apple authentication with firebase
 
-  1. Register your app in apple store using [apple developer account]("https://developer.apple.com/")
-  2. If you not able to understand properly follow this dependancy [sign_in_with_apple]("https://pub.dev/packages/sign_in_with_apple")
+  1. Register your app in apple store using [apple developer account](https://developer.apple.com)
+  2. If you not able to understand properly follow this dependancy [sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple)
   2. Enable Apple authentication on [Firebase](https://console.firebase.google.com/).
      * Click on your project in [Firebase](https://console.firebase.google.com/) 
      * Select "Authentication" menu you can see right side on top 
@@ -87,8 +87,8 @@ How to use
 
 ## Phone number authentication with firebase
 
-1.Enable phone number authentication on [Firebase](https://console.firebase.google.com/).
-     * Click on your project in [Firebase](https://console.firebase.google.com/) 
+1.Enable phone number authentication on [Firebase](https://console.firebase.google.com).
+     * Click on your project in [Firebase](https://console.firebase.google.com) 
      * Select "Authentication" menu you can see right side on top 
      * Select "Sign-in method" and turn on "Phone Number"
 
