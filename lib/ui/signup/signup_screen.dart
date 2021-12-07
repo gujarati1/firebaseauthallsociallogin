@@ -1,4 +1,5 @@
 import 'package:firebase_auth_all_social/constant/constant.dart';
+import 'package:firebase_auth_all_social/constant/enum.dart';
 import 'package:firebase_auth_all_social/constant/strings.dart';
 import 'package:firebase_auth_all_social/setup/firebase_auth_helper.dart';
 import 'package:firebase_auth_all_social/ui/common/input_field.dart';
@@ -30,7 +31,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return WillPopScope(
       onWillPop: () async => true,
       child: Scaffold(
@@ -81,6 +81,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       errorText: Strings.errentervalidemail,
                                       emailValidation: true,
                                       isPassword: false,
+                                      keyboardType: TextInputType.emailAddress,
+                                      mobileValidation: false,
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -93,6 +95,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       errorText: Strings.errenterrestaurantname,
                                       emailValidation: false,
                                       isPassword: true,
+                                      keyboardType: TextInputType.text,
+                                      mobileValidation: false,
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -106,6 +110,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                           Strings.errenterrestaurantusername,
                                       emailValidation: false,
                                       isPassword: true,
+                                      keyboardType: TextInputType.text,
+                                      mobileValidation: false,
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -126,6 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       isPassword: true,
                                       isShowPwdToggleText: true,
                                       pwdObsureText: true,
+                                      keyboardType: TextInputType.text,mobileValidation: false,
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -141,6 +148,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       isPassword: true,
                                       isShowPwdToggleText: true,
                                       pwdObsureText: true,
+                                      keyboardType: TextInputType.text,
+                                      mobileValidation: false,
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -211,19 +220,15 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void firebaseEmailSignup() {
-    
     signupWithEmail(
       context: context,
       email: usernameController.text.toString(),
       password: passwordController.text.toString(),
       fullname: "${firstNameController.text} ${lastNameController.text}",
       onSuccess: (value) {
-       
-        Utils.redirectToScreen(context, LoginScreen());
+        Utils.redirectToNextScreen(context, LoginScreen());
       },
-      onError: (value) {
-       
-      },
+      onError: (value) {},
     );
   }
 }

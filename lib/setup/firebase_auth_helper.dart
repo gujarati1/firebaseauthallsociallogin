@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
 
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_all_social/constant/constant.dart';
 import 'package:firebase_auth_all_social/pref/shared_pref.dart';
@@ -7,6 +10,9 @@ import 'package:firebase_auth_all_social/setup/database/data_store.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:twitter_login/entity/auth_result.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 class FirebaseAuthHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -71,6 +77,77 @@ class FirebaseAuthHelper {
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
+  Future<UserCredential> signInWithTwitter() async {
+    // Create a TwitterLogin instance
+    final twitterLogin = TwitterLogin(
+        apiKey: "qPUHtai4VWW5N11cI5ZtXmS84",
+        apiSecretKey: "7h8fXCpeeqaJdIGYahSNkcK36hQiHor1t8fUGEaW1AOETLG7dg",
+        redirectURI: 'firebase-twitter-login-auth://');
+
+    // Trigger the sign-in flow
+    final authResult = await twitterLogin.login();
+
+    // Create a credential from the access token
+    final twitterAuthCredential = TwitterAuthProvider.credential(
+      accessToken: authResult.authToken.toString(),
+      secret: authResult.authTokenSecret!,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance
+        .signInWithCredential(twitterAuthCredential);
+  }
+
+  /// Generates a cryptographically secure random nonce, to be included in a
+  /// credential request.
+  String generateNonce([int length = 32]) {
+    final charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  /// Returns the sha256 hash of [input] in hex notation.
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  Future<UserCredential> signInWithApple() async {
+    // To prevent replay attacks with the credential returned from Apple, we
+    // include a nonce in the credential request. When signing in with
+
+    // Firebase, the nonce in the id token returned by Apple, is expected to
+    // match the sha256 hash of `rawNonce`.
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
+
+    // Request credential for the currently signed in Apple account.
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: nonce,
+    );
+
+    // Create an `OAuthCredential` from the credential returned by Apple.
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+    );
+    Constant.appleToken = oauthCredential.idToken!;
+    Constant.fullname =
+        '${appleCredential.givenName} ${appleCredential.familyName}';
+    String email = '${appleCredential.email}';
+    // print("$displayName - $userEmail");
+    // Sign in the user with Firebase. If the nonce we generated earlier does
+    // not match the nonce in `appleCredential.identityToken`, sign in will fail.
+    return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+  }
+
   //SIGN OUT METHOD
   Future<void> signOut(BuildContext context) async {
     String? loginType = await getPrefStirngData(Constant.loginType);
@@ -89,12 +166,13 @@ class FirebaseAuthHelper {
   }
 }
 
-loginWithEmail(
-    {required BuildContext context,
-    required String email,
-    required String password,
-    required Function(String value) onSuccess,
-    required Function(String value) onError}) {
+loginWithEmail({
+  required BuildContext context,
+  required String email,
+  required String password,
+  required Function(String value) onSuccess,
+  required Function(String value) onError,
+}) {
   DatabaseStore databaseStore = DatabaseStore();
   databaseStore.firebaseInit();
 
@@ -140,7 +218,7 @@ signupWithEmail({
           loginType = "email";
 
           DatabaseStore().addUserToFireStore(
-              fullname, email, loginType, facebookId, profilePic);
+              fullname, email, loginType, facebookId, profilePic, "", "");
           onSuccess.call("");
         } else {
           onError.call(value.toString());
@@ -155,10 +233,11 @@ signupWithEmail({
       });
 }
 
-loginWithGoogle(
-    {required BuildContext context,
-    required Function(UserCredential value) onSuccess,
-    required Function(String value) onError}) {
+loginWithGoogle({
+  required BuildContext context,
+  required Function(UserCredential value) onSuccess,
+  required Function(String value) onError,
+}) {
   try {
     FirebaseAuthHelper()
         .signInWithGoogle()
@@ -197,7 +276,7 @@ loginWithGoogle(
                   logintype: loginType);
 
               DatabaseStore().addUserToFireStore(
-                  name, email, loginType, facebookId, profilePic);
+                  name, email, loginType, facebookId, profilePic, "", "");
 
               Constant.initUserData();
               onSuccess.call(value);
@@ -263,8 +342,129 @@ loginwithFacebook(
               isuserlogged: true,
               logintype: loginType);
 
-          DatabaseStore()
-              .addUserToFireStore(name, "", loginType, facebookId, profilePic);
+          DatabaseStore().addUserToFireStore(
+              name, "", loginType, facebookId, profilePic, "", "");
+
+          Constant.initUserData();
+
+          onSuccess.call(value);
+        } else {
+          onError.call(value.toString());
+        }
+      })
+      .onError((error, stackTrace) {
+        onError.call(error.toString());
+      })
+      .whenComplete(() => {})
+      .catchError((error) {
+        onError.call(error.toString());
+      });
+}
+
+loginwithTwitter({
+  required BuildContext context,
+  required Function(UserCredential value) onSuccess,
+  required Function(String value) onError,
+}) {
+  DatabaseStore databaseStore = DatabaseStore();
+  databaseStore.firebaseInit();
+
+  FirebaseAuthHelper()
+      .signInWithTwitter()
+      .then((value) {
+        // get result from facebook login
+        if (value != null) {
+          String name = "";
+          String email = "";
+          String twitterId = "";
+          String profilePic = "";
+          String loginType = "twitter";
+          final Map<String, dynamic>? profile =
+              value.additionalUserInfo!.profile;
+          profile!.entries.forEach((element) {
+            String key = element.key.toString();
+            String value = element.value.toString();
+            // print("$key - $value");
+
+            if (key == "name") {
+              name = value;
+            } else if (key == "email") {
+              email = value;
+            } else if (key == "profile_image_url_https") {
+              profilePic = value;
+            } else if (key == "id") {
+              twitterId = value;
+            }
+          });
+
+          saveUserData(
+              name: name,
+              email: email,
+              profileurl: profilePic,
+              facebookid: "",
+              isuserlogged: true,
+              logintype: loginType);
+
+          DatabaseStore().addUserToFireStore(
+              name, email, loginType, "", profilePic, twitterId, "");
+
+          Constant.initUserData();
+
+          onSuccess.call(value);
+        } else {
+          onError.call(value.toString());
+        }
+      })
+      .onError((error, stackTrace) {
+        onError.call(error.toString());
+      })
+      .whenComplete(() => {})
+      .catchError((error) {
+        onError.call(error.toString());
+      });
+}
+
+loginwithApple({
+  required BuildContext context,
+  required Function(UserCredential value) onSuccess,
+  required Function(String value) onError,
+}) {
+  DatabaseStore databaseStore = DatabaseStore();
+  databaseStore.firebaseInit();
+
+  FirebaseAuthHelper()
+      .signInWithApple()
+      .then((value) {
+        // get result from facebook login
+        if (value != null) {
+          String name = "";
+          String email = "";
+          String twitterId = "";
+          String profilePic = "";
+          String loginType = "apple";
+          final Map<String, dynamic>? profile =
+              value.additionalUserInfo!.profile;
+          profile!.entries.forEach((element) {
+            String key = element.key.toString();
+            String value = element.value.toString();
+            // print("$key - $value");
+            if (key == "email") {
+              email = value;
+            }
+          });
+
+          saveUserData(
+              name: Constant.fullname,
+              email: email,
+              profileurl: profilePic,
+              facebookid: "",
+              isuserlogged: true,
+              logintype: loginType);
+
+          if (!Constant.fullname.contains("null")) {
+            DatabaseStore().addUserToFireStore(Constant.fullname, email,
+                loginType, "", profilePic, "", Constant.appleToken);
+          }
 
           Constant.initUserData();
 

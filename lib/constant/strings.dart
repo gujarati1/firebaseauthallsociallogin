@@ -22,6 +22,10 @@ class Strings {
   static const String errenterrestaurantusername =
       "Please enter restaurant user name";
 
+static const String mobilenumber = "Mobile Number";
+static const String entermobilenumber = "Enter mobile number";
+static const String otp = "OTP";
+static const String enterotp = "Enter OTP";
   // Font Style name
   static const String robotoRegular = "Roboto";
   static const String robotoBold = "RobotoBold";

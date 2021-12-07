@@ -1,3 +1,7 @@
+import 'package:firebase_auth_all_social/constant/enum.dart';
+import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:firebase_auth_all_social/constant/constant.dart';
 import 'package:firebase_auth_all_social/constant/strings.dart';
 import 'package:firebase_auth_all_social/provider/firebase_auth_provider.dart';
@@ -7,12 +11,12 @@ import 'package:firebase_auth_all_social/ui/common/widgets/button_widget.dart';
 import 'package:firebase_auth_all_social/ui/dashboard/dashboard_screen.dart';
 import 'package:firebase_auth_all_social/ui/signup/signup_screen.dart';
 import 'package:firebase_auth_all_social/ui/utils/utils.dart';
-import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatefulWidget {
+
   LoginScreen({
     Key? key,
+    
   }) : super(key: key);
 
   @override
@@ -24,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
+  var mobileNumberController = TextEditingController();
   bool spinnerVisible = false;
   bool isExpand = true;
 
@@ -58,8 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           // color: AppColors.primaryColor,
                         ))
                         .make(),
-                    // Email & password
-                    formWidget(),
+                    
+                      // Email & password
+                      emailSignupFormWidget(),
 
                     //  sign in button
                     elevatButtonWidget(
@@ -68,13 +74,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             callback: () {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
-                                firebaseEmailSignIn();
+                               
+                                  firebaseEmailSignIn();
+                            
                               }
                             },
                             buttonTitle: Strings.signin)
                         .p20(),
 
-                    didnthaveAccountWidget(),
+                    
+                      didnthaveAccountWidget(),
                   ],
                 ).wh(MediaQuery.of(context).size.width,
                     MediaQuery.of(context).size.height),
@@ -86,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget formWidget() {
+  Widget emailSignupFormWidget() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Card(
@@ -110,6 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   emailValidation: true,
                   isPassword: false,
                   isShowPwdToggleText: false,
+                  keyboardType: TextInputType.emailAddress,
+                  mobileValidation: false,
                 ),
                 const SizedBox(
                   height: 10,
@@ -125,6 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   isPassword: true,
                   isShowPwdToggleText: true,
                   pwdObsureText: true,
+                   keyboardType: TextInputType.text,
+                   mobileValidation: false,
                 ),
                 const SizedBox(
                   height: 20,
@@ -149,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 
   Widget didnthaveAccountWidget() {
     return InkWell(
@@ -197,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
             profileurl: "",
             name: "");
         FirebaseAuthNotifierProvider();
-        
+
         Utils.redirectToNextScreen(context, const DashboardScreen());
       },
       onError: (value) {

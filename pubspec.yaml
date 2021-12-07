@@ -29,6 +29,7 @@ environment:
 dependencies:
   cached_network_image: ^3.2.0
   cloud_firestore: ^3.1.1
+  crypto: ^3.0.1
   cupertino_icons: ^1.0.2
   dwds: ^11.4.0
   firebase_analytics: ^8.3.2
@@ -44,6 +45,7 @@ dependencies:
   provider: ^6.0.1
   rename: ^2.0.1
   shared_preferences: ^2.0.9
+  sign_in_with_apple: ^3.3.0
   twitter_login: ^4.0.1
   velocity_x: ^3.3.0
 

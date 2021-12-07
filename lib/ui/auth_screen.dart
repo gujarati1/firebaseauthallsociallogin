@@ -5,6 +5,7 @@ import 'package:firebase_auth_all_social/setup/firebase_auth_helper.dart';
 import 'package:firebase_auth_all_social/ui/common/widgets/button_widget.dart';
 import 'package:firebase_auth_all_social/ui/dashboard/dashboard_screen.dart';
 import 'package:firebase_auth_all_social/ui/login/login_screen.dart';
+import 'package:firebase_auth_all_social/ui/login/mobile_login_screen.dart';
 import 'package:firebase_auth_all_social/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -52,9 +53,18 @@ class _AuthScreenState extends State<AuthScreen> {
                             callback: () {
                               if (loginTypeItem.loginType ==
                                   LoginTypeEnum.email) {
-                                Utils.redirectToScreen(context, LoginScreen());
+                                Utils.redirectToScreen(
+                                    context,
+                                    LoginScreen(
+                                     
+                                    ));
                               } else if (loginTypeItem.loginType ==
                                   LoginTypeEnum.mobile) {
+                                    Utils.redirectToScreen(
+                                    context,
+                                    MobileLoginScreen(
+                                     loginTypeEnum: LoginTypeEnum.mobile,
+                                    ));
                               } else if (loginTypeItem.loginType ==
                                   LoginTypeEnum.google) {
                                 callLoginWithGoogle();
@@ -63,8 +73,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                 callLoginWithFacebook();
                               } else if (loginTypeItem.loginType ==
                                   LoginTypeEnum.twitter) {
+                                callLoginWithTwitter();
                               } else if (loginTypeItem.loginType ==
                                   LoginTypeEnum.apple) {
+                                callLoginWithApple();
                               } else if (loginTypeItem.loginType ==
                                   LoginTypeEnum.github) {
                               } else if (loginTypeItem.loginType ==
@@ -100,6 +112,32 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void callLoginWithFacebook() {
     loginwithFacebook(
+      context: context,
+      onSuccess: (value) {
+        print("object");
+        Utils.redirectToScreen(context, const DashboardScreen());
+      },
+      onError: (value) {
+        print("object");
+      },
+    );
+  }
+
+  void callLoginWithTwitter() {
+    loginwithTwitter(
+      context: context,
+      onSuccess: (value) {
+        print("object");
+        Utils.redirectToScreen(context, const DashboardScreen());
+      },
+      onError: (value) {
+        print("object");
+      },
+    );
+  }
+
+  void callLoginWithApple() {
+    loginwithApple(
       context: context,
       onSuccess: (value) {
         print("object");

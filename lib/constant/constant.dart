@@ -68,6 +68,7 @@ class Constant {
   static String profileImageUrl = "";
   static String fullname = "";
   static String emailPref = "";
+static String appleToken = "";
 
   static void initUserData() {
     // getPrefStirngData(Constant.userProfileUrl).then((value) {
@@ -124,11 +125,4 @@ class TaskTypeEnum {
   static String incomplete = 'Incomplete';
   static String favourite = 'favourite';
   static String archive = 'archive';
-}
-
-class LoginTypeEnum {
-  static String google = 'google';
-  static String facebook = 'facebook';
-  static String custom = 'Low';
-  static String verylow = 'Very Low';
 }

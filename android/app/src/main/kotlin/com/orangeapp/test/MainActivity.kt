@@ -1,4 +1,4 @@
-package com.example.firebase_auth_all_social
+package com.orangeapp.test
 
 import io.flutter.embedding.android.FlutterActivity
 

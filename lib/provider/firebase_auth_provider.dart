@@ -33,12 +33,13 @@ class FirebaseAuthNotifierProvider extends ChangeNotifier {
 
           value.docs.forEach((element) {
             Map<String, dynamic> data = element.data();
-
-            if (element.data()[Constant.userid] ==
-                FirebaseAuth.instance.currentUser!.uid) {
+            String userid = element.data()[Constant.userid];
+            if (userid == FirebaseAuth.instance.currentUser!.uid) {
               fullname = element.data()[Constant.name];
               emailPref = element.data()[Constant.email];
               profileImageUrl = element.data()[Constant.userProfileUrl];
+              print(
+                  "$profileImageUrl - ${FirebaseAuth.instance.currentUser!.uid}");
               profileImageUrl = !profileImageUrl.isEmpty
                   ? profileImageUrl
                   : "https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png";
@@ -50,6 +51,7 @@ class FirebaseAuthNotifierProvider extends ChangeNotifier {
                   facebookid: element.data()["fb_id"],
                   profileurl: element.data()[Constant.userProfileUrl]);
               // Constant.initUserData();
+
             }
           });
           notifyListeners();

@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:firebase_auth_all_social/constant/strings.dart';
-import 'package:firebase_auth_all_social/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:firebase_auth_all_social/constant/strings.dart';
+import 'package:firebase_auth_all_social/ui/utils/utils.dart';
 
 class InputFieldWidget extends StatefulWidget {
   BuildContext parentContext;
@@ -16,6 +16,9 @@ class InputFieldWidget extends StatefulWidget {
   bool emailValidation = false;
   bool isShowPwdToggleText;
   bool pwdObsureText;
+  bool mobileValidation = false;
+  TextInputType keyboardType;
+  int maxLength = 0;
   InputFieldWidget({
     Key? key,
     required this.parentContext,
@@ -27,6 +30,9 @@ class InputFieldWidget extends StatefulWidget {
     required this.emailValidation,
     this.isShowPwdToggleText = false,
     this.pwdObsureText = false,
+    this.mobileValidation = false,
+    required this.keyboardType,
+    this.maxLength = 100,
   }) : super(key: key);
 
   @override
@@ -37,6 +43,8 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: widget.maxLength,
+      keyboardType: widget.keyboardType,
       obscureText: widget.isPassword ? widget.pwdObsureText : widget.isPassword,
       controller: widget.controller,
       style: const TextStyle(
@@ -49,6 +57,9 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
           return widget.errorText;
         } else if (widget.emailValidation && !emailValid) {
           return "Please enter valid email";
+        } else if (widget.mobileValidation &&
+            widget.controller!.text.length != 10) {
+          return "Please enter 10 digit mobile number";
         } else {
           return null;
         }

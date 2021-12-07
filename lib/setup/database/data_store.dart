@@ -13,20 +13,30 @@ class DatabaseStore {
 
   User? currentUser;
 
-  Future<void> addUserToFireStore(String name, String email, String logintype,
-      String fbId, String pictureProfile) async {
+  Future<void> addUserToFireStore(
+      String name,
+      String email,
+      String logintype,
+      String fbId,
+      String pictureProfile,
+      String twitterId,
+      String appleId) async {
     firebaseInit();
 
     Map<String, dynamic> map = HashMap();
-    map.addAll(<String, dynamic>{
-      'name': name,
-      'email': email,
-      "login_type": logintype,
-      "fb_id": fbId,
-      'timestamp': DateTime.now().millisecondsSinceEpoch,
-      'profile_url': pictureProfile,
-      'user_id': FirebaseAuth.instance.currentUser!.uid,
-    });
+    map.addAll(
+      <String, dynamic>{
+        'name': name,
+        'email': email,
+        "login_type": logintype,
+        "fb_id": fbId,
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'profile_url': pictureProfile,
+        'twitterId': twitterId,
+        'appleId': appleId,
+        'user_id': FirebaseAuth.instance.currentUser!.uid,
+      },
+    );
 
     currentUser = FirebaseAuth.instance.currentUser;
     return FirebaseFirestore.instance

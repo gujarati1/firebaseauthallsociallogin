@@ -48,6 +48,50 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198542435704:android:8ddc681438aaec3d97948d",
+        "android_client_info": {
+          "package_name": "com.orangeapp.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198542435704-39l9dm9mvasb6u7804kdnbcdg1oss1ra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orangeapp.test",
+            "certificate_hash": "5a5259461ac73303b29e612229edaa0fda5209be"
+          }
+        },
+        {
+          "client_id": "198542435704-ek65hjhg563ol12kn0obgcvlu5u7l47c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo2qxEUaz5Zmyql0mAnQFKjYvkFm3OyLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198542435704-ek65hjhg563ol12kn0obgcvlu5u7l47c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "198542435704-j2v5r8lmbiacmvelfsbiaq3mbbpco9sq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseauth"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
