@@ -61,7 +61,7 @@ This is guide you to Xcode setup while enabling Flutter Firebase Authentication.
 ## Apple authentication with firebase
 
   1. Register your app in apple store using [apple developer account]("https://developer.apple.com/")
-  2. If you can not able to understand properly follow this dependancy [sign_in_with_apple]("https://pub.dev/packages/sign_in_with_apple")
+  2. If you can not able to understand properly follow this dependancy [SignInWithApple]("https://pub.dev/packages/sign_in_with_apple")
   3. Enable Apple authentication on [Firebase](https://console.firebase.google.com/).
      * Click on your project in [Firebase](https://console.firebase.google.com/) 
      * Select "Authentication" menu you can see right side on top 
@@ -71,7 +71,7 @@ This is guide you to Xcode setup while enabling Flutter Firebase Authentication.
    1. Enable Phone Auth on Firebase.
       * No requirements of any Xcode setup if you had already added URL schmes otherwise follow the step 2 of google auth.
    2. Follow the [Phone Authentication](https://firebase.flutter.dev/docs/auth/phone) for phone auth setup.
-   
+
 ## Error 
 
 1. 'firebase_analytics' or 'firebase_crashlytics' not found 
