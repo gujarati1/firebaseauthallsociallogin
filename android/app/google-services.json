@@ -7,50 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:198542435704:android:c5aeb438600c946597948d",
-        "android_client_info": {
-          "package_name": "com.example.firebaseauth"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "198542435704-u1up4llt03pvlkrirtct4updalu4jp3u.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.firebaseauth",
-            "certificate_hash": "5a5259461ac73303b29e612229edaa0fda5209be"
-          }
-        },
-        {
-          "client_id": "198542435704-ek65hjhg563ol12kn0obgcvlu5u7l47c.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCo2qxEUaz5Zmyql0mAnQFKjYvkFm3OyLs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "198542435704-ek65hjhg563ol12kn0obgcvlu5u7l47c.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "198542435704-j2v5r8lmbiacmvelfsbiaq3mbbpco9sq.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.firebaseauth"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:198542435704:android:8ddc681438aaec3d97948d",
         "android_client_info": {
           "package_name": "com.orangeapp.test"

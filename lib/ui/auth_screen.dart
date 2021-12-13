@@ -63,7 +63,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     Utils.redirectToScreen(
                                     context,
                                     MobileLoginScreen(
-                                     loginTypeEnum: LoginTypeEnum.mobile,
+                                     loginTypeEnum: LoginTypeEnum.mobile, 
                                     ));
                               } else if (loginTypeItem.loginType ==
                                   LoginTypeEnum.google) {
